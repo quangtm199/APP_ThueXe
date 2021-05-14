@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="027249df-d916-46e0-b752-632f529b51c1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select year(ngaynhap) as [năm nhập],count(*) as [Số lượng phiếu], sum(Tiencoc) as [tiền cọc],sum(giaxe) as [giá xe]
+	from NhapXe,ChiTietNhapXe
+	where NhapXe.Manhapxe=ChiTietNhapXe.Manhapxe 
+	group by year(ngaynhap)]]>
+	</queryString>
+	<field name="năm nhập" class="java.lang.Integer"/>
+	<field name="Số lượng phiếu" class="java.lang.Integer"/>
+	<field name="tiền cọc" class="java.lang.Integer"/>
+	<field name="giá xe" class="java.lang.Integer"/>
+	<variable name="stt" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="116" y="0" width="363" height="62" uuid="00fdf319-dfce-43ae-a7ac-aad3bc7bdee9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="36" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[thống kê số phiếu nhập]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="219" y="62" width="196" height="22" uuid="241f0d09-791c-435f-b7cf-b8d97e1ce88c"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="6d2646fc-0828-49ac-b30c-7f7d8813ca92"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="52" y="0" width="86" height="15" forecolor="#736343" uuid="2aaa7872-3742-44ee-ba00-d74d0996252a"/>
+				<text><![CDATA[năm nhập]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="138" y="0" width="138" height="15" forecolor="#736343" uuid="92f657bb-3324-45bc-bc70-9aa0bb52b090"/>
+				<text><![CDATA[Số lượng phiếu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="0" width="138" height="15" forecolor="#736343" uuid="bdaf6516-3846-46c3-acf3-498e9927dc5e"/>
+				<text><![CDATA[tiền cọc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="414" y="0" width="138" height="15" forecolor="#736343" uuid="1eb29ddd-282b-4746-bd7b-fc85ee1788ed"/>
+				<text><![CDATA[giá xe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="51" height="15" uuid="361b8a23-be31-4ab5-9009-961da7af2809"/>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="1aaced0d-9cd1-42cd-82ec-a5a2273ad686"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="52" y="0" width="86" height="15" uuid="1ae738a4-0d13-4dcf-b55c-26eb37448711"/>
+					<textFieldExpression><![CDATA[$F{năm nhập}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="138" y="0" width="138" height="15" uuid="f5757b35-f065-4fd0-b73c-7749ecd45cce"/>
+					<textFieldExpression><![CDATA[$F{Số lượng phiếu}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="276" y="0" width="138" height="15" uuid="b34c30bc-213c-4668-86f7-7643851002b6"/>
+					<textFieldExpression><![CDATA[$F{tiền cọc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="414" y="0" width="138" height="15" uuid="4e78f618-11ab-4581-b01b-3f92efe03a18"/>
+					<textFieldExpression><![CDATA[$F{giá xe}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="1" y="0" width="51" height="15" uuid="8053dd78-8496-422b-a756-92cc8bc1128a"/>
+					<textFieldExpression><![CDATA[$V{stt}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="0c9e9d25-a8ae-4088-958c-ec1fda3f79ac"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="b7ca1542-acc7-4441-84df-6054142bb5c8"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="4231d1b0-2104-47f3-bc54-c530164737e0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="55ce01f9-e588-426c-9278-81b077f3bfa3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="fc2308ff-c416-4445-9006-8350083aa991"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

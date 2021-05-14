@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7eed22d6-62d9-46dd-8f61-1c6670c6d2ce">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select convert (varchar, Tgbaohiem, 103) as [thời gian bảo hiểm],isnull([4 chỗ],'0') as [4 chỗ],isnull([7 chỗ],'0') as [7 chỗ],isnull([12 chỗ],'0') as[12 chỗ],isnull([21 chỗ],'0') as [21 chỗ],isnull([30 chỗ],'0') as [30 chỗ]
+from
+(
+	select Tgbaohiem,Loaixe,count(*) as [số lượng]
+	from BangXe
+	group by  Tgbaohiem,Loaixe
+	) as j
+	pivot
+	(
+	sum([số lượng]) for Loaixe in ([4 chỗ],[7 chỗ],[12 chỗ],[21 chỗ],[30 chỗ])
+	) as j]]>
+	</queryString>
+	<field name="thời gian bảo hiểm" class="java.lang.String"/>
+	<field name="4 chỗ" class="java.lang.Integer"/>
+	<field name="7 chỗ" class="java.lang.Integer"/>
+	<field name="12 chỗ" class="java.lang.Integer"/>
+	<field name="21 chỗ" class="java.lang.Integer"/>
+	<field name="30 chỗ" class="java.lang.Integer"/>
+	<variable name="stt" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$V{stt}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="119" y="0" width="341" height="62" uuid="923e83c6-0b54-4519-aa0c-0ad9cd5940b3"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Thống kê SL xe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="219" y="62" width="196" height="22" uuid="b3e8d6e1-e960-4059-b4be-f83a5c873d32"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[theo thời hạn bảo hiểm]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="9c928bf8-7cc5-48e8-9d0d-47b891fb2e14"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="27" y="1" width="119" height="15" forecolor="#736343" uuid="84db83b8-8dea-440e-80c7-9aca44f0610e"/>
+				<text><![CDATA[thời gian bảo hiểm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="147" y="0" width="67" height="15" forecolor="#736343" uuid="1857064b-341b-4d87-850a-19877eafbdd0"/>
+				<text><![CDATA[4 chỗ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="214" y="0" width="62" height="15" forecolor="#736343" uuid="103cc474-2c13-493d-afd8-187357995e5c"/>
+				<text><![CDATA[7 chỗ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="0" width="92" height="15" forecolor="#736343" uuid="a9054503-82b6-47d6-bbe5-7ace34629e23"/>
+				<text><![CDATA[12 chỗ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="0" width="92" height="15" forecolor="#736343" uuid="67019448-b61d-4160-9398-85fb385ff842"/>
+				<text><![CDATA[21 chỗ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="0" width="92" height="15" forecolor="#736343" uuid="17052437-1f91-4a0f-bf54-97354465f1e6"/>
+				<text><![CDATA[30 chỗ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="1" width="26" height="14" uuid="799e9509-cb7e-4ef0-b013-eb387b608e64"/>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="00d7b9d0-20ca-4071-b561-3f9362ca665f"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="39" y="0" width="92" height="15" uuid="3f24633a-57c3-48b2-b852-89c9799b5724"/>
+					<textFieldExpression><![CDATA[$F{thời gian bảo hiểm}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="146" y="0" width="68" height="15" uuid="fba1affa-a351-424b-8f6f-585eaa498545"/>
+					<textFieldExpression><![CDATA[$F{4 chỗ}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="214" y="0" width="62" height="15" uuid="59bac964-82b8-4c78-bf16-339c648407f9"/>
+					<textFieldExpression><![CDATA[$F{7 chỗ}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="a0ae574b-3af5-460c-beb4-c316897059b7"/>
+					<textFieldExpression><![CDATA[$F{12 chỗ}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="297ab990-15ff-42ae-a356-2282016ba888"/>
+					<textFieldExpression><![CDATA[$F{21 chỗ}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="8088090d-65a3-4b94-9cf7-fc3ae9bcd0ec"/>
+					<textFieldExpression><![CDATA[$F{30 chỗ}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="27" height="15" uuid="4c57afe7-5a1a-41bd-b57c-1160b7fcad37"/>
+					<textFieldExpression><![CDATA[$V{stt}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1ad74ac1-8b90-47b4-80a1-c683400e8301"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="c3fe5764-a3b4-4274-8e90-797b3052c121"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="7d5b018b-dcd5-448a-9685-878ec00bc967"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="033e0d0e-df9f-40fa-8595-42ff39f3c0d6"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="fc5ed0b4-f202-4c12-8ff6-b5b95681f204"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
